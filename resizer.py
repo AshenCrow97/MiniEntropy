@@ -21,7 +21,7 @@ class Resizer:
         self.width, self.height = self.image.size
 
 
-    def transform(self, new_longer_side: int = 512) -> Image:
+    def transform(self, new_longer_side: int) -> Image:
 
         longer_side = max(self.width, self.height)
 
@@ -37,8 +37,10 @@ class Resizer:
         return self.image
 
 
-    def fit_transform(self, image_path: str):
-        pass
+    def fit_transform(self, image_path: str, new_longer_side: int = 512) -> Image:
+        
+        self.fit(image_path)
+        return self.transform(new_longer_side)
 
 
 # def resize(image, width=800):
