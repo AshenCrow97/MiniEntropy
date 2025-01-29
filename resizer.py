@@ -15,10 +15,12 @@ class Resizer:
         self.height = None
 
 
-    def fit(self, image_path: str) -> None:
+    def fit(self, image_path: str) -> Self:
 
         self.image = Image.open(image_path)
         self.width, self.height = self.image.size
+
+        return self
 
 
     def transform(self, new_longer_side: int) -> Image:
@@ -39,8 +41,8 @@ class Resizer:
 
     def fit_transform(self, image_path: str, new_longer_side: int = 512) -> Image:
         
-        self.fit(image_path)
-        return self.transform(new_longer_side)
+        return self.fit(image_path).transform(new_longer_side)
+
 
 
 # def resize(image, width=800):
