@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import warnings
 from PIL import Image
 
 
@@ -20,8 +21,20 @@ class Resizer:
         self.width, self.height = image.size
 
 
-    def transform(self, longer_side: int = 800):
-        pass
+    def transform(self, new_longer_side: int = 512) -> Image:
+
+        longer_side = max(self.width, self.height)
+
+        if new_longer_side > longer_side: 
+            
+            warnings.warn("Image is smaller than desired size.")
+
+        scaling_factor = new_longer_side / longer_side
+        self.width, self.height = int(self.width * scaling_factor), int(self.height * scaling_factor)
+
+        self.image = self.image.resize((self.width, self.height))
+
+        return self.image
 
 
     def fit_transform(self, image_path: str):
