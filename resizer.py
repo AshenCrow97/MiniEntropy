@@ -35,7 +35,7 @@ class Resizer:
         return self
 
 
-    def transform(self, image: Image) -> Image:
+    def transform(self, image: Image) -> np.ndarray:
         """
         """
 
