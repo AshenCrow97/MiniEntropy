@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-from typing import List, Tuple, Any
+from typing import Any, List, Self, Tuple
+from PIL import Image
 
 
-class SimplePipeline:
+class Pipeline:
+    """
+    """
 
     def __init__(self, steps: List[Tuple[str, Any]]):
         """
@@ -12,51 +15,42 @@ class SimplePipeline:
         self.steps = steps
 
 
-    def fit(self):
+    def fit(self, X: Any) -> Self:
         """
         """
 
-        for name, step in self.steps:
+        for _, step in self.steps:
 
-            step.fit()
+            X = step.fit_transform(X)
 
         return self
 
 
-    def transform(self):
+    def transform(self, X: Any) -> Any:
         """
         """
 
-        for name, step in self.steps:
+        for _, step in self.steps:
 
-            step.transform()
+            X = step.transform()
 
         return X
     
 
-    def fit_transform(self, X, y=None):
+    def fit_transform(self, X: Any) -> Any:
         """
         """
 
-        for name, step in self.steps:
+        for _, step in self.steps:
 
-            step.fit_transform()
+            X = step.fit_transform(X)
 
         return X
 
 
-    def predict(self, X):
-        """If the last step is a model, make predictions."""
-
-        X = self.transform(X)
-        last_step = self.steps[-1][1]
-        if hasattr(last_step, "predict"):
-            return last_step.predict(X)
-        raise ValueError("Last step does not have a predict method")
-
-
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Any:
         """Allow indexing to retrieve a specific step"""
+
         return self.steps[index][1]
 
     def __repr__(self):
@@ -67,13 +61,12 @@ class SimplePipeline:
 
 
 if __name__ == '__main__':
-    pipeline = SimplePipeline([
-    ("scaler", StandardScaler()),
-    ("model", LogisticRegression())
+
+    pipeline = Pipeline([
+    ("resize", Resizer()),
+    ("palette", PaletteMaker())
     ])
 
-    # Fit and predict
-    pipeline.fit(X, y)
-    predictions = pipeline.predict(X)
-
-    print(predictions)
+    
+    image = Image.open("mona.jpg")
+    pipeline.fit_transform(image)
