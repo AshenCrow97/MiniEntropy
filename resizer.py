@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from typing import Self
 import warnings
 from PIL import Image
 
