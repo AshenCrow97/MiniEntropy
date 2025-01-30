@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import numpy as np
 from typing import Self
 import warnings
 from PIL import Image
@@ -38,10 +39,10 @@ class Resizer:
         """
         """
 
-        return image.resize((
+        return np.array(image.resize((
             int(self.width * self.scaling_factor), 
             int(self.height * self.scaling_factor))
-        )
+        ).getdata())
 
 
     def fit_transform(self, image: Image, new_longer_side: int = 512) -> Image:
@@ -52,6 +53,7 @@ class Resizer:
 
 
 if __name__ == '__main__':
+
     image = Image.open("mona.jpg")
     r = Resizer()
     r.fit(image, 256)
