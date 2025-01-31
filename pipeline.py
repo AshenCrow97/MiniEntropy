@@ -15,28 +15,6 @@ class Pipeline:
         self.steps = steps
 
 
-    def fit(self, X: Any) -> Self:
-        """
-        """
-
-        for _, step in self.steps:
-
-            X = step.fit_transform(X)
-
-        return self
-
-
-    def transform(self, X: Any) -> Any:
-        """
-        """
-
-        for _, step in self.steps:
-
-            X = step.transform()
-
-        return X
-    
-
     def fit_transform(self, X: Any) -> Any:
         """
         """
@@ -53,20 +31,22 @@ class Pipeline:
 
         return self.steps[index][1]
 
+
     def __repr__(self):
-        return f"SimplePipeline(steps={self.steps})"
+        return f"Pipeline(steps={self.steps})"
 
 
 
 
 
 if __name__ == '__main__':
+    pass
 
-    pipeline = Pipeline([
-    ("resize", Resizer()),
-    ("palette", PaletteMaker())
-    ])
+    # pipeline = Pipeline([
+    # ("resize", Resizer()),
+    # ("palette", PaletteMaker())
+    # ])
 
     
-    image = Image.open("mona.jpg")
-    pipeline.fit_transform(image)
+    # image = Image.open("mona.jpg")
+    # pipeline.fit_transform(image)
