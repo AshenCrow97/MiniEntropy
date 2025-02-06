@@ -43,6 +43,16 @@ class Resizer:
             int(self.width * self.scaling_factor), 
             int(self.height * self.scaling_factor))
         ).getdata())
+    
+
+    def transform_image(self, image: Image) -> Image:
+        """
+        """
+
+        return image.resize((
+            int(self.width * self.scaling_factor), 
+            int(self.height * self.scaling_factor))
+        )
 
 
     def fit_transform(self, image: Image, new_longer_side: int = 512) -> Image:
@@ -56,6 +66,6 @@ if __name__ == '__main__':
 
     image = Image.open("mona.jpg")
     r = Resizer()
-    r.fit(image, 256)
-    r.transform(image).show()
+    r.fit(image, 512)
+    r.transform_image(image).show()
 
