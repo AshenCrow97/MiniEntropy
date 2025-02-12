@@ -15,6 +15,39 @@ class Pipeline:
         self.steps = steps
 
 
+    def fit(self, X: Any) -> Self:
+        """
+        """
+
+        for _, step in self.steps:
+
+            step.fit(X)
+
+        return self
+    
+
+    def transform(self, X: Any) -> Any:
+        """
+        """
+
+        for _, step in self.steps:
+
+            X = step.transform(X)
+
+        return X
+    
+
+    def transform_image(self, X: Any) -> Image:
+        """
+        """
+
+        for _, step in self.steps:
+
+            X = step.transform_image(X)
+
+        return X
+
+
     def fit_transform(self, X: Any) -> Any:
         """
         """
