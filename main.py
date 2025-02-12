@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
 
+import resizer, pipeline
+from PIL import Image
+
+pipe = pipeline.Pipeline([
+    ("resizer", resizer.Resizer())
+])
+
+
+image = Image.open("mona.jpg")
+pipe.fit(image).transform_image(image).show()
+
+
 
 # Resizer model
 # transform method
