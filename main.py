@@ -3,13 +3,20 @@
 import resizer, pipeline
 from PIL import Image
 
-pipe = pipeline.Pipeline([
+pipe = pipeline.Pipeline(
+    
+    [
     ("resizer", resizer.Resizer())
-])
+    ],
+
+    show=True
+)
 
 
 image = Image.open("mona.jpg")
-pipe.fit(image).transform_image(image).show()
+pipe.fit(image).transform(image)
+
+print(pipe)
 
 
 

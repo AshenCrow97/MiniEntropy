@@ -10,56 +10,53 @@ class Resizer:
     """ 
     """
 
-    def __init__(self):
+    def __init__(self, longer_side: int = 512):
         """
         """
 
-        self.width = None
-        self.height = None
-        self.scaling_factor = 1.0
+        self.width: int = None
+        self.height: int = None
+        self.scaling_factor: float = 1.0
+        
+        self.longer_side: int = longer_side
 
 
-    def fit(self, image: Image, new_longer_side: int) -> Self:
+    def fit(self, image: Image, show: bool = False) -> Self:
         """
         """
 
         self.width, self.height = image.size
         longer_side = max(self.width, self.height)
 
-        if new_longer_side > longer_side: 
+        if self.longer_side > longer_side:
             
             warnings.warn("Image is smaller than desired size.")
 
-        self.scaling_factor = new_longer_side / longer_side
+        self.scaling_factor = self.longer_side / longer_side
 
         return self
 
 
-    def transform(self, image: Image) -> np.ndarray:
+    def transform(self, image: Image, show: bool = False) -> np.ndarray:
         """
         """
 
-        return np.array(image.resize((
-            int(self.width * self.scaling_factor), 
-            int(self.height * self.scaling_factor))
-        ).getdata())
-    
+        image = image.resize((
+                int(self.width * self.scaling_factor), 
+                int(self.height * self.scaling_factor))
+                )
 
-    def transform_image(self, image: Image) -> Image:
-        """
-        """
-
-        return image.resize((
-            int(self.width * self.scaling_factor), 
-            int(self.height * self.scaling_factor))
-        )
+        if show:
+            image.show()
+        
+        return np.array(image.getdata())
 
 
-    def fit_transform(self, image: Image, new_longer_side: int = 512) -> Image:
+    def fit_transform(self, image: Image, show: bool = False) -> Image:
         """
         """
         
-        return self.fit(image, new_longer_side).transform(image)
+        return self.fit(image, show).transform(image, show)
 
 
 if __name__ == '__main__':

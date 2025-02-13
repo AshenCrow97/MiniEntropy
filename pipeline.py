@@ -8,11 +8,12 @@ class Pipeline:
     """
     """
 
-    def __init__(self, steps: List[Tuple[str, Any]]):
+    def __init__(self, steps: List[Tuple[str, Any]], show: bool = False):
         """
         """
 
         self.steps = steps
+        self.show = show
 
 
     def fit(self, X: Any) -> Self:
@@ -21,7 +22,8 @@ class Pipeline:
 
         for _, step in self.steps:
 
-            step.fit(X)
+            if hasattr(step, 'fit'):
+                step.fit(X, self.show)
 
         return self
     
@@ -32,18 +34,8 @@ class Pipeline:
 
         for _, step in self.steps:
 
-            X = step.transform(X)
-
-        return X
-    
-
-    def transform_image(self, X: Any) -> Image:
-        """
-        """
-
-        for _, step in self.steps:
-
-            X = step.transform_image(X)
+            if hasattr(step, 'transform'):
+                X = step.transform(X, self.show)
 
         return X
 
@@ -54,8 +46,14 @@ class Pipeline:
 
         for _, step in self.steps:
 
-            X = step.fit_transform(X)
+            if hasattr(step, 'fit_transform'):
+                X = step.fit_transform(X, self.show)
 
+            else:
+                if hasattr(step, 'fit'):
+                    step.fit(X, self.show)
+                if hasattr(step, 'transform'):
+                    X = step.transform(X, self.show)
         return X
 
 
@@ -74,12 +72,3 @@ class Pipeline:
 
 if __name__ == '__main__':
     pass
-
-    # pipeline = Pipeline([
-    # ("resize", Resizer()),
-    # ("palette", PaletteMaker())
-    # ])
-
-    
-    # image = Image.open("mona.jpg")
-    # pipeline.fit_transform(image)
