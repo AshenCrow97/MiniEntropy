@@ -16,7 +16,7 @@ class PaletteMaker:
         self.model = KMeans(n_clusters=self.k_colors, n_init=1, random_state=0)
 
 
-    def fit(self, pixels: np.ndarray) -> Self:
+    def fit(self, pixels: np.ndarray, show: bool = False) -> Self:
         """
         """
 
@@ -31,17 +31,35 @@ class PaletteMaker:
         return self
     
 
-    def transform(self, pixels: np.ndarray) -> np.ndarray:
+    def transform(self, pixels: np.ndarray, show: bool = False) -> np.ndarray:
         """
         """
 
-        return self.model.predict(pixels)
+        return self.model.predict(pixels)#, self.model.cluster_centers_
 
 
-    def fit_transform(self, pixels: np.ndarray) -> np.ndarray:
+    def fit_transform(self, pixels: np.ndarray, show: bool = False) -> np.ndarray:
         """
         """
 
-        return self.fit(pixels).transform(pixels)
+        return self.fit(pixels).transform(pixels)#, self.model.cluster_centers_
 
     
+# def show_colors(centers):
+#     k = len(centers)
+#     im = Image.new(mode = "RGB", size = (100*k, 100))
+#     for x in range(100*k):
+#         for y in range(100):
+#             color = tuple(map(int, centers[x//100]))
+#             im.putpixel((x, y), color)
+#     im.show()
+
+# if __name__ == '__main__':
+
+#     image = Image.open("mona.jpg")
+#     pixels = np.array(image.getdata())
+
+#     p = PaletteMaker()
+#     p.fit(pixels)
+#     p.transform(pixels)
+    # show_colors(centers)
