@@ -10,12 +10,12 @@ class PaletteMaker:
     """
     """
 
-    def __init__(self):
+    def __init__(self, k : int = 7):
         """
         """
 
-        self.k_colors = 4
-        self.model = KMeans(n_clusters=self.k_colors, n_init=1, random_state=0)
+        self.k = k
+        self.model = KMeans(n_clusters=self.k, n_init=1, random_state=0)
 
 
     def _show_palette(self, centers) -> None:
@@ -62,6 +62,10 @@ class PaletteMaker:
 
         X["labels"] = self.model.predict(X["pixels"])
         X["palette"] = self.model.cluster_centers_
+
+        if show:
+            #TODO
+            pass
 
         return X
 
