@@ -22,8 +22,7 @@ class Pipeline:
 
         for _, step in self.steps:
 
-            if hasattr(step, 'fit'):
-                step.fit(X, self.show)
+            step.fit(X, self.show)
 
         return self
     
@@ -34,8 +33,7 @@ class Pipeline:
 
         for _, step in self.steps:
 
-            if hasattr(step, 'transform'):
-                X = step.transform(X, self.show)
+            X = step.transform(X, self.show)
 
         return X
 
@@ -46,14 +44,8 @@ class Pipeline:
 
         for _, step in self.steps:
 
-            if hasattr(step, 'fit_transform'):
-                X = step.fit_transform(X, self.show)
+            X = step.fit_transform(X, self.show)
 
-            else:
-                if hasattr(step, 'fit'):
-                    step.fit(X, self.show)
-                if hasattr(step, 'transform'):
-                    X = step.transform(X, self.show)
         return X
 
 
