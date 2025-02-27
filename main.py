@@ -1,23 +1,28 @@
 #!/usr/bin/env python3
 
-import resizer, pipeline
+import numpy as np
+import resizer, palette_maker, pipeline
 from PIL import Image
 
 pipe = pipeline.Pipeline(
     
     [
-    ("resizer", resizer.Resizer())
+    ("resizer", resizer.Resizer()),
+    ("palette_maker", palette_maker.PaletteMaker())
     ],
 
     show=True
 )
 
 
-image = Image.open("mona.jpg")
-pipe.fit(image).transform(image)
+X = {}
+
+X["image"] = Image.open("mona.jpg")
+X = pipe.fit_transform(X)
+
+print(X)
 
 print(pipe)
-
 
 
 # Resizer model

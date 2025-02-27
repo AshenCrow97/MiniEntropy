@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
-from typing import Self
+from typing import Any, Dict, Self
 import warnings
 from PIL import Image
 
@@ -21,11 +21,11 @@ class Resizer:
         self.longer_side: int = longer_side
 
 
-    def fit(self, image: Image, show: bool = False) -> Self:
+    def fit(self, X: Dict[str, Any], show: bool = False) -> Self:
         """
         """
 
-        self.width, self.height = image.size
+        self.width, self.height = X["image"].size
         longer_side = max(self.width, self.height)
 
         if self.longer_side > longer_side:
@@ -37,26 +37,28 @@ class Resizer:
         return self
 
 
-    def transform(self, image: Image, show: bool = False) -> np.ndarray:
+    def transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
         """
         """
 
-        image = image.resize((
+        image = X["image"].resize((
                 int(self.width * self.scaling_factor), 
                 int(self.height * self.scaling_factor))
                 )
 
         if show:
             image.show()
+
+        X["pixels"] = np.array(image.getdata())
         
-        return np.array(image.getdata())
+        return X
 
 
-    def fit_transform(self, image: Image, show: bool = False) -> Image:
+    def fit_transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
         """
         """
         
-        return self.fit(image, show).transform(image, show)
+        return self.fit(X, show).transform(X, show)
 
 
 if __name__ == '__main__':
