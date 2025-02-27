@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import Any, List, Self, Tuple
+from typing import Any, Dict, List, Self, Tuple
 from PIL import Image
 
 
@@ -16,7 +16,7 @@ class Pipeline:
         self.show = show
 
 
-    def fit(self, X: Any) -> Self:
+    def fit(self, X: Dict[str, Any]) -> Self:
         """
         """
 
@@ -28,7 +28,7 @@ class Pipeline:
         return self
     
 
-    def transform(self, X: Any) -> Any:
+    def transform(self, X: Dict[str, Any]) -> Dict[str, Any]:
         """
         """
 
@@ -40,7 +40,7 @@ class Pipeline:
         return X
 
 
-    def fit_transform(self, X: Any) -> Any:
+    def fit_transform(self, X: Dict[str, Any]) -> Dict[str, Any]:
         """
         """
 
@@ -64,6 +64,9 @@ class Pipeline:
 
 
     def __repr__(self):
+        """
+        """
+        
         return f"Pipeline(steps={self.steps})"
 
 

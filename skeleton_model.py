@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-from typing import Self, Any
+from typing import Self, Any, Dict
 
 
 class SkeletonModel:
@@ -15,21 +15,21 @@ class SkeletonModel:
         pass
 
 
-    def fit(self, X: Any, show: bool = False) -> Self:
+    def fit(self, X: Dict[str, Any], show: bool = False) -> Self:
         """
         """
 
         return self
 
 
-    def transform(self, X: Any, show: bool = False) -> Any:
+    def transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
         """
         """
 
         return X
 
 
-    def fit_transform(self, X: Any, show: bool = False) -> Any:
+    def fit_transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
         """
         """
         
