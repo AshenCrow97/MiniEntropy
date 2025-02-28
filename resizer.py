@@ -50,6 +50,7 @@ class Resizer:
             image.show()
 
         X["pixels"] = np.array(image.getdata())
+        X["width"], X["height"] = image.size
         
         return X
 
