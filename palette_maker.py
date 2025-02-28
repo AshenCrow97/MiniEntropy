@@ -10,7 +10,7 @@ class PaletteMaker:
     """
     """
 
-    def __init__(self, k : int = 7):
+    def __init__(self, k : int = 16):
         """
         """
 
@@ -64,8 +64,10 @@ class PaletteMaker:
         X["palette"] = self.model.cluster_centers_
 
         if show:
-            #TODO
-            pass
+
+            to_color = lambda c: self.model.cluster_centers_[c]
+            new_pixels = to_color(X["labels"]).astype('uint8').reshape(X["height"], X["width"], 4)
+            Image.fromarray(new_pixels).show()
 
         return X
 
@@ -74,7 +76,7 @@ class PaletteMaker:
         """
         """
 
-        return self.fit(X, show).transform(X, show)#, self.model.cluster_centers_
+        return self.fit(X, show).transform(X, show)
 
     
 
