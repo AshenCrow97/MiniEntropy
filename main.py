@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 
 import numpy as np
-import resizer, palette_maker, pipeline
+import cell_dividor, resizer, palette_maker, pipeline
 from PIL import Image
 
 pipe = pipeline.Pipeline(
     
     [
-    ("resizer", resizer.Resizer()),
-    ("palette_maker", palette_maker.PaletteMaker())
+    ("resizer", resizer.Resizer(512)),
+    ("palette_maker", palette_maker.PaletteMaker(16)),
+    ("cell_divider", cell_dividor.CellDivider()),
     ],
 
-    show=True
+    show=False
 )
 
 
