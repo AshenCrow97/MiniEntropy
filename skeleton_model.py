@@ -33,7 +33,7 @@ class SkeletonModel:
         """
         """
         
-        return self.fit(X).transform(X, show)
+        return self.fit(X, show).transform(X, show)
 
 
 if __name__ == '__main__':
