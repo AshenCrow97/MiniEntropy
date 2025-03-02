@@ -6,9 +6,6 @@ from sklearn.tree import DecisionTreeClassifier
 from cell import Cell, create_cell, color_cell
 import numpy as np
 
-from PIL import Image, ImageDraw
-import pandas as pd
-
 
 class CellDivider:
     """ 
@@ -17,7 +14,7 @@ class CellDivider:
     def __init__(self):
         """
         """
-
+        #decision tree params
         pass
 
 
@@ -37,12 +34,11 @@ class CellDivider:
         h_tree = DecisionTreeClassifier(
             random_state=0, 
             criterion='entropy',
-            max_leaf_nodes=16,
-            min_samples_leaf=2*X["width"],
+            max_leaf_nodes=32,
+            min_samples_leaf=16*X["width"],
         )
         h_tree.fit(h_index.reshape(-1, 1), X["labels"])
-        h_thresholds = np.sort(np.append(np.array([t for t in h_tree.tree_.threshold if t >= 0]), [0, X["width"]-1]))
-
+        h_thresholds = np.sort(np.append(np.array([t for t in h_tree.tree_.threshold if t >= 0]), [0, X["height"]-1]))
 
         # vertical divisions
         v_index = np.remainder(np.arange(X["labels"].size), X["width"])
@@ -50,11 +46,10 @@ class CellDivider:
             random_state=0, 
             criterion='entropy',
             max_leaf_nodes=16,
-            min_samples_leaf=2*X["height"],
+            min_samples_leaf=16*X["height"],
         )
         v_tree.fit(v_index.reshape(-1, 1), X["labels"])
-        v_thresholds = np.sort(np.append(np.array([t for t in v_tree.tree_.threshold if t >= 0]), [0, X["height"]-1]))
-
+        v_thresholds = np.sort(np.append(np.array([t for t in v_tree.tree_.threshold if t >= 0]), [0, X["width"]-1]))
 
         # cells
         cells = []
@@ -71,24 +66,8 @@ class CellDivider:
                 cells.append(
                     color_cell(c, *X["palette"][np.bincount(X["labels"].reshape(X["height"], X["width"])[c.y1:c.y2, c.x1:c.x2].flatten()).argmax()].astype(int))
                 )
-
-
-
-        # draw cells
-        new_image = Image.new(mode="RGB", size=(X["width"], X["height"]))
-        draw = ImageDraw.Draw(new_image)
-        
-
-        for c in cells:
-            draw.rectangle(
-                [c.x1, c.y1, c.x2, c.y2],
-                fill=(c.r, c.g, c.b),
-                outline="black",
-                width=1,
-            )
-
-        new_image.show()
-            
+           
+        X["cells"] = cells
 
         return X
 
