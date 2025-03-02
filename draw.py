@@ -26,7 +26,7 @@ class CellDrawer:
         """
         """
 
-        image = Image.new('RGBA', (X["width"], X["height"]), (0, 0, 0, 0))
+        image = Image.new(mode='RGBA', size=(X["width"], X["height"]))
         draw = ImageDraw.Draw(image)
 
         for cell in X["cells"]:
