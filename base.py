@@ -55,7 +55,7 @@ class BaseModel:
 
 
     def fit_transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
-        """Process data, fit the model, and transform the data.
+        """Call fit and transform methods in sequence.
 
         Parameters
         ----------
