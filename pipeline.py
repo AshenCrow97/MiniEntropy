@@ -34,6 +34,11 @@ class Pipeline:
         -------
         self : Pipeline
             Fitted pipeline.
+
+        Notes
+        -----
+        This method is not being used in the current implementation 
+        and is only there to match the interface.
         """
 
         for _, step in self.steps:
@@ -57,6 +62,11 @@ class Pipeline:
         -------
         X : Dict[str, Any]
             The input dictionary with added transformed data.
+
+        Notes
+        -----
+        This method is not being used in the current implementation 
+        and is only there to match the interface.
         """
 
         for _, step in self.steps:
