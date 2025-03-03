@@ -22,7 +22,7 @@ class KMeansPaletteMaker(BaseModel):
     def __init__(self, k : int = 4):
 
         self.k = k
-        self.model = KMeans(n_clusters=self.k, n_init=1, random_state=0)
+        self.model = KMeans(n_clusters=self.k, n_init=1)
 
 
     def _show_palette(self, centers : np.ndarray) -> None:
@@ -66,7 +66,6 @@ class KMeansPaletteMaker(BaseModel):
 
         pixels = X["pixels"]
 
-        np.random.seed(0)
         rng = np.random.default_rng()
 
         sample_size = np.sqrt(pixels.shape[0]).astype(int)
@@ -102,7 +101,6 @@ class KMeansPaletteMaker(BaseModel):
         X["palette"] = self.model.cluster_centers_
 
         if show:
-            #TODO: if the image has three channels, add the fourth channel
             
             to_color = lambda c: self.model.cluster_centers_[c]
             new_pixels = to_color(X["labels"]).astype('uint8').reshape(X["height"], X["width"], 3)
