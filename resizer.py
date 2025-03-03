@@ -4,9 +4,10 @@ import numpy as np
 from typing import Any, Dict, Self
 import warnings
 from PIL import Image
+from base import BaseModel
 
 
-class Resizer:
+class Resizer(BaseModel):
     """ 
     """
 
@@ -53,19 +54,4 @@ class Resizer:
         X["width"], X["height"] = image.size
         
         return X
-
-
-    def fit_transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
-        """
-        """
-        
-        return self.fit(X, show).transform(X, show)
-
-
-if __name__ == '__main__':
-
-    image = Image.open("mona.jpg")
-    r = Resizer()
-    r.fit(image, 512)
-    r.transform_image(image).show()
-
+    
