@@ -6,22 +6,32 @@ from sklearn.cluster import KMeans
 from typing import Any, Dict, Self
 from base import BaseModel
 
-#TODO: add type hints; add BaseModel; add docstrings; rename to KMeansPaletteMaker; add new palette maker
 
-class PaletteMaker(BaseModel):
-    """
+class KMeansPaletteMaker(BaseModel):
+    """Model to create a color palette using KMeans clustering.
+
+    Attributes
+    ----------
+    k : int, default=4
+        Number of colors in the palette.
+    model : KMeans
+        KMeans model used to create
+        the color palette.
     """
 
     def __init__(self, k : int = 4):
-        """
-        """
 
         self.k = k
         self.model = KMeans(n_clusters=self.k, n_init=1, random_state=0)
 
 
-    def _show_palette(self, centers) -> None:
-        """
+    def _show_palette(self, centers : np.ndarray) -> None:
+        """Show the color palette as an image.
+        
+        Parameters
+        ----------
+        centers : np.ndarray
+            Centers of the color clusters.
         """
 
         k = len(centers)
@@ -38,7 +48,20 @@ class PaletteMaker(BaseModel):
 
 
     def fit(self, X: Dict[str, Any], show: bool = False) -> Self:
-        """
+        """Compute the color palette using KMeans clustering.
+
+        Parameters
+        ----------
+        X : Dict[str, Any]
+            A dictionary of input data.
+
+        show : bool, default=False
+            Whether to display the color palette.
+
+        Returns
+        -------
+        self : KMeansPaletteMaker
+            Fitted model.
         """
 
         pixels = X["pixels"]
@@ -59,7 +82,20 @@ class PaletteMaker(BaseModel):
     
 
     def transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
-        """
+        """Recolor the image using the color palette.
+
+        Parameters
+        ----------
+        X : Dict[str, Any]
+            A dictionary of input data.
+
+        show : bool, default=False
+            Whether to display the recolored image.
+
+        Returns
+        -------
+        X : Dict[str, Any]
+            The input dictionary with added recolored image.
         """
 
         X["labels"] = self.model.predict(X["pixels"])
@@ -74,15 +110,3 @@ class PaletteMaker(BaseModel):
 
         return X
    
-
-
-if __name__ == '__main__':
-    pass
-
-#     image = Image.open("mona.jpg")
-#     pixels = np.array(image.getdata())
-
-#     p = PaletteMaker()
-#     p.fit(pixels)
-#     p.transform(pixels)
-#     show_colors(centers)
