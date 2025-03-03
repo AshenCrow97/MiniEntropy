@@ -4,13 +4,15 @@ import numpy as np
 from PIL import Image
 from sklearn.cluster import KMeans
 from typing import Any, Dict, Self
+from base import BaseModel
 
+#TODO: add type hints; add BaseModel; add docstrings; rename to KMeansPaletteMaker; add new palette maker
 
-class PaletteMaker:
+class PaletteMaker(BaseModel):
     """
     """
 
-    def __init__(self, k : int = 16):
+    def __init__(self, k : int = 4):
         """
         """
 
@@ -64,21 +66,14 @@ class PaletteMaker:
         X["palette"] = self.model.cluster_centers_
 
         if show:
-
+            #TODO: if the image has three channels, add the fourth channel
+            
             to_color = lambda c: self.model.cluster_centers_[c]
-            new_pixels = to_color(X["labels"]).astype('uint8').reshape(X["height"], X["width"], 4)
+            new_pixels = to_color(X["labels"]).astype('uint8').reshape(X["height"], X["width"], 3)
             Image.fromarray(new_pixels).show()
 
         return X
-
-
-    def fit_transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
-        """
-        """
-
-        return self.fit(X, show).transform(X, show)
-
-    
+   
 
 
 if __name__ == '__main__':
