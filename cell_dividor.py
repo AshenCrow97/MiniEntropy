@@ -5,15 +5,15 @@ from typing import Any, Dict, Self
 from sklearn.tree import DecisionTreeClassifier
 from cell import Cell, create_cell, color_cell
 import numpy as np
+from base import BaseModel
 
 
-class CellDivider:
+class CellDivider(BaseModel):
     """ 
     """
 
     def __init__(self):
-        """
-        """
+
         #decision tree params
         pass
 
@@ -45,7 +45,7 @@ class CellDivider:
         v_tree = DecisionTreeClassifier(
             random_state=0, 
             criterion='entropy',
-            max_leaf_nodes=16,
+            max_leaf_nodes=32,
             min_samples_leaf=16*X["height"],
         )
         v_tree.fit(v_index.reshape(-1, 1), X["labels"])
@@ -70,16 +70,4 @@ class CellDivider:
         X["cells"] = cells
 
         return X
-
-
-    def fit_transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
-        """
-        """
-        
-        return self.fit(X).transform(X, show)
-
-
-if __name__ == '__main__':
-
-    pass
 
