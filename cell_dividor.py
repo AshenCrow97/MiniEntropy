@@ -8,7 +8,7 @@ import numpy as np
 from base import BaseModel
 
 
-class CellDivider(BaseModel):
+class SliceSplitter(BaseModel):
     """ 
     """
 
@@ -74,3 +74,10 @@ class CellDivider(BaseModel):
 
         return X
 
+
+
+class RecursiveSplitter(BaseModel):
+    """
+    """
+    
+    pass
