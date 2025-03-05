@@ -3,7 +3,7 @@
 
 from typing import Any, Dict, Self
 from sklearn.tree import DecisionTreeClassifier
-from cell import Cell, create_cell, color_cell
+from cell import Cell
 import numpy as np
 from base import BaseModel
 
@@ -56,16 +56,19 @@ class CellDivider(BaseModel):
 
         for i in range(h_thresholds.shape[0]-1):
             for j in range(v_thresholds.shape[0]-1):
-                c = create_cell(
+
+                c = Cell(
                     x1=v_thresholds[j].astype(int),
                     y1=h_thresholds[i].astype(int),
                     x2=v_thresholds[j+1].astype(int),
                     y2=h_thresholds[i+1].astype(int),
                 )
 
-                cells.append(
-                    color_cell(c, *X["palette"][np.bincount(X["labels"].reshape(X["height"], X["width"])[c.y1:c.y2, c.x1:c.x2].flatten()).argmax()].astype(int))
+                c.set_color(
+                    *X["palette"][np.bincount(X["labels"].reshape(X["height"], X["width"])[c.y1:c.y2, c.x1:c.x2].flatten()).argmax()].astype(int)
                 )
+
+                cells.append(c)
            
         X["cells"] = cells
 
