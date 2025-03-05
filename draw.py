@@ -18,6 +18,7 @@ class CellDrawer(BaseModel):
         The width of the cell outline.
     """
 
+
     def __init__(self, outline : str = "black", width : int = 1):
 
         self.outline = outline
@@ -45,12 +46,12 @@ class CellDrawer(BaseModel):
         draw = ImageDraw.Draw(image)
 
         for cell in X["cells"]:
+
             draw.rectangle(
                 [cell.x1, cell.y1, cell.x2, cell.y2],
                 fill=(cell.r, cell.g, cell.b, cell.a),
                 outline=self.outline,
                 width=self.width,
-                
             )
 
         if show:
