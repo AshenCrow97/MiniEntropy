@@ -114,7 +114,7 @@ class Pipeline:
         return self.steps[index][1]
 
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Returns a string representation of the Pipeline."""
 
         return f"Pipeline(steps={self.steps})"
