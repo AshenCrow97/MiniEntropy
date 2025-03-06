@@ -12,18 +12,18 @@ class SliceSplitter(BaseModel):
     """ 
     """
 
-    def __init__(self):
+    def __init__(self, horizontal_splits : int = 16, vertical_splits : int = 16):
 
         self.h_tree = DecisionTreeClassifier(
             random_state=0, 
             criterion='entropy',
-            max_leaf_nodes=32,
+            max_leaf_nodes=horizontal_splits,
         )
 
         self.v_tree = DecisionTreeClassifier(
             random_state=0, 
             criterion='entropy',
-            max_leaf_nodes=32,
+            max_leaf_nodes=vertical_splits,
         )
 
 
