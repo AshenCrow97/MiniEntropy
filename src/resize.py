@@ -3,8 +3,7 @@
 import numpy as np
 from typing import Any, Dict, Self
 import warnings
-from PIL import Image
-from base import BaseModel
+from src.base import BaseModel
 
 
 class Resizer(BaseModel):

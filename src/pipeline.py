@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from typing import Any, Dict, List, Self, Tuple
-from PIL import Image
 
 
 class Pipeline:

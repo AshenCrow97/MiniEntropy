@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import typing
+#import typing
 
 
 class Cell:

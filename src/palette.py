@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 from sklearn.cluster import KMeans
 from typing import Any, Dict, Self
-from base import BaseModel
+from src.base import BaseModel
 
 
 class KMeansPaletteMaker(BaseModel):

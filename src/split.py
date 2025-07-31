@@ -3,9 +3,9 @@
 
 from typing import Any, Dict, Self
 from sklearn.tree import DecisionTreeClassifier
-from cell import Cell
+from src.cell import Cell
 import numpy as np
-from base import BaseModel
+from src.base import BaseModel
 
 
 class SliceSplitter(BaseModel):

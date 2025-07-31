@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-from typing import Any, Dict, Self
+from typing import Any, Dict
 from PIL import Image, ImageDraw
-from cell import Cell
-from base import BaseModel
+from src.base import BaseModel
 
 
 class CellDrawer(BaseModel):
