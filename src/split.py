@@ -28,25 +28,51 @@ class SliceSplitter(BaseModel):
 
 
     def fit(self, X: Dict[str, Any], show: bool = False) -> Self:
-        """
+        """Fit decision tree models to decide split thresholds.
+
+        Parameters
+        ----------
+        X : Dict[str, Any]
+            A dictionary of input data.
+
+        show : bool, default=False
+            Unused, only to match the interface.
+
+        Returns
+        -------
+        self : SliceSplitter
+            Fitted model.
         """
 
         # horizontal splits
         h_index = np.arange(X["labels"].size) // X["width"]
-        self.h_tree.set_params(min_samples_leaf=8*X["width"])
+        self.h_tree.set_params(min_samples_leaf= 8 * X["width"])
         self.h_tree.fit(h_index.reshape(-1, 1), X["labels"])
         
 
         # vertical splits
         v_index = np.remainder(np.arange(X["labels"].size), X["width"])
-        self.v_tree.set_params(min_samples_leaf=8*X["height"])
+        self.v_tree.set_params(min_samples_leaf= 8 * X["height"])
         self.v_tree.fit(v_index.reshape(-1, 1), X["labels"])
 
         return self
 
 
     def transform(self, X: Dict[str, Any], show: bool = False) -> Dict[str, Any]:
-        """
+        """Create rectangular cells from horizontal and vertical intersections.
+
+        Parameters
+        ----------
+        X : Dict[str, Any]
+            A dictionary of input data.
+
+        show : bool, default=False
+            Unused, only to match the interface.
+
+        Returns
+        -------
+        X : Dict[str, Any]
+            The input dictionary with added list of cells.
         """
 
         h_thresholds = np.sort(np.append(np.array([t for t in self.h_tree.tree_.threshold if t >= 0]), [0, X["height"]-1]))

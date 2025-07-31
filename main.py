@@ -1,43 +1,27 @@
 #!/usr/bin/env python3
 
 import numpy as np
-import cell_dividor, resizer, palette_maker, pipeline
+import split, resize, palette, pipeline, draw, recursive_divider
 from PIL import Image
 
 pipe = pipeline.Pipeline(
     
     [
-    ("resizer", resizer.Resizer(512)),
-    ("palette_maker", palette_maker.PaletteMaker(16)),
-    ("cell_divider", cell_dividor.CellDivider()),
+    ("resizer", resize.Resizer(1024)),
+    ("palette_maker", palette.KMeansPaletteMaker(6)),
+    ("cell_divider", split.SliceSplitter()),
+    ("cell_drawer", draw.CellDrawer(outline="black", width=1)),
     ],
 
-    show=False
+    show=True,
 )
 
 
 X = {}
-
 X["image"] = Image.open("mona.jpg")
+
 X = pipe.fit_transform(X)
 
-print(X)
-
-print(pipe)
 
 
-# Resizer model
-# transform method
-
-
-# Color model
-# fit, transform methods
-
-
-# DecisionTree model
-# returns a list of cells - four coordinates and color
-
-
-# Draw model
-# draws the cells
-# you can specify outline and other visual stuff
+# save image

@@ -9,10 +9,18 @@ This project creates minimalistic art through a multi-step process involving K-M
 
 ![Alt text](./starry_night_example/03_cells.bmp?raw=true "Starry Night")
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 ## Instalation and Usage
 ```
 git clone https://github.com/AshenCrow97/MiniEntropy.git
 cd MiniEntropy
 pip3 install -r requirements.txt
 ./main.py
+<<<<<<< Updated upstream
 ```
+=======
+```
+>>>>>>> Stashed changes
